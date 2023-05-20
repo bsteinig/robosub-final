@@ -1,133 +1,196 @@
-import { spin } from "@/components/keyframes/spin";
-import Gallery from "@/features/headshotGallery/Gallery";
 import {
+  Box,
+  Center,
   Container,
+  Divider,
+  Group,
+  Image,
+  SimpleGrid,
+  Stack,
   Text,
   Title,
   createStyles,
   getStylesRef,
+  useMantineTheme,
 } from "@mantine/core";
-import { useHover } from "@mantine/hooks";
+import { info } from "console";
 import React from "react";
 
 const useStyles = createStyles((theme) => ({
   main: {
     position: "relative",
-    minHeight: "100vh",
+    minHeight: "300vh",
     width: "100%",
     zIndex: 1,
-    overflow: "hidden",
+
     boxShadow: "0px 15px 50px 0px rgb(10 10 10 / 50%)",
     background:
       theme.colorScheme === "dark"
         ? theme.colors.dark[7]
-        : theme.colors.gray[0],
+        : theme.colors.gray[2],
   },
-  headline: {
-    ref: getStylesRef("headline"),
-
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "40vmin",
-    minHeight: 300,
-    marginTop: "5vmin",
-    boxShadow: `inset 30px 30px 50px 10px ${
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[0]
-    },inset -30px -30px 50px 10px ${
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[0]
-    }`,
-    backgroundImage: `none`,
-    overflow: "hidden",
-    zIndex: 1,
-
-    "&:after": {
-      zIndex: -2,
-      content: '""',
-      position: "absolute",
-      top: "-50%",
-      left: 0,
-      width: "200%",
-      height: "500%",
-      backgroundImage: `none`,
-    },
-
-    "&:before": {
-      zIndex: -1,
-      content: '""',
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23${
-        theme.colorScheme === "dark" ? "A6A7AB" : "343A40"
-      }' fill-opacity='0.4'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-      boxShadow: `inset 20px 20px 50px 20px ${
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0]
-      },inset -20px -20px 50px 20px ${
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0]
-      }`,
-      backdropFilter: "blur(100px)",
-    },
+  bigHeading: {
+    fontSize: "19vw",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[9],
   },
-  title: {
-    fontWeight: 500,
-    fontSize: "4vmin",
-    border: "3px solid",
+  underline: {
     borderColor:
       theme.colorScheme === "dark"
         ? theme.colors.dark[0]
         : theme.colors.gray[9],
-    borderRadius: theme.radius.xl,
-    userSelect: "none",
   },
-  spinGradient: {
-    "&:after": {
-      backgroundImage: `radial-gradient(at 35% 27%, hsla(221,80%,65%,1) 0px, transparent 50%),
-        radial-gradient(at 78% 86%, hsla(154,74%,65%,1) 0px, transparent 50%),
-        radial-gradient(at 63% 88%, hsla(265,97%,65%,1) 0px, transparent 50%),
-        radial-gradient(at 37% 77%, hsla(321,78%,65%,1) 0px, transparent 50%),
-        radial-gradient(at 70% 75%, hsla(170,81%,65%,1) 0px, transparent 50%),
-        radial-gradient(at 3% 20%, hsla(201,81%,65%,1) 0px, transparent 50%)`,
-      animation: `${spin} 5s linear infinite`,
-    },
+  intro: {
+    marginLeft: "20%",
+    textAlign: "right",
+    fontWeight: 300,
+    fontSize: "1.25rem",
+  },
+  infoSubtitle: {
+    borderBottom: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.colors.gray[9]
+    }`,
+    position: "sticky",
+  },
+  infoContent: {
+    marginLeft: "15%",
+    position: "sticky",
+    background:
+    theme.colorScheme === "dark"
+      ? theme.colors.dark[7]
+      : theme.colors.gray[2],
   },
 }));
 
 function About() {
   const { classes, cx } = useStyles();
-  const { hovered, ref: titleRef } = useHover();
+  const theme = useMantineTheme();
+
+  const handleContextMenu = (event: React.MouseEvent<HTMLVideoElement>) => {
+    event.preventDefault(); // Prevents the context menu from appearing
+  };
+
+  interface dataItem {
+    title: string;
+    content: number;
+  }
+  interface data extends Array<dataItem> {}
+
+  const infoData: data = [
+    {
+      title: "Founded",
+      content: 2019,
+    },
+    {
+      title: "Members",
+      content: 205,
+    },
+    {
+      title: "Sponsors",
+      content: 32,
+    },
+  ];
+
+  const rightCol = infoData.map((item: dataItem, index: number) => {
+    return (
+      <>
+        <Text size="lg" style={{ top: 100 * (index + 1)}} className={classes.infoSubtitle}>{item.title}</Text>
+
+        <Box style={{ top: 90 * (index + 1)}} className={classes.infoContent}>
+          <Title className={classes.bigHeading}>{item.content}</Title>
+        </Box>
+      </>
+    );
+  });
 
   return (
     <main className={classes.main}>
-      <Container
-        className={cx(classes.headline, { [classes.spinGradient]: hovered })}
-        size="xl"
-      >
-        <Title
-          ref={titleRef}
-          mt="xl"
-          p="sm"
-          className={classes.title}
-          order={1}
-        >
-          Meet our team
+      <Container my={50} size="fluid">
+        <Title className={classes.bigHeading} order={1}>
+          ABOUT US
         </Title>
-        <Text mt="lg" size="lg">
-          Meet our diverse team of engineers, software developers, and business
-          students.
-        </Text>
+        <Divider size={2} className={classes.underline} />
+        <SimpleGrid cols={2}>
+          <Text className={classes.intro}>
+            Michigan Robotic Submarine is a student-led engineering team
+            comprised of primarily undergraduate students with diverse
+            backgrounds and interests, working together to design and build an
+            autonomous robotic submarine for the annual RoboSub competition in
+            San Diego, CA. We strive to advance Autonomous Underwater Vehicle
+            (AUV) technology by engineering a submarine that can perform various
+            sub-nautical tasks, like sonar navigation and torpedo target
+            shooting.
+          </Text>
+          <div>
+            {rightCol}
+          </div>
+        </SimpleGrid>
       </Container>
-      <Gallery filters={["all"]} />
     </main>
   );
 }
 
 export default About;
+
+/*
+ <div className={classes.container}>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          onContextMenu={handleContextMenu}
+          preload="auto"
+          className={classes.video}
+        >
+          
+          <source
+            src="https://video.wixstatic.com/video/d0cbf8_140719a68e924d559eae63ca19557246/720p/mp4/file.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div className={classes.overlay} />
+        <div className={classes.logoOverlay}>
+          <Image classNames={{ imageWrapper: classes.logoCenter }} src="/logo/FullName.png" alt="logo" width={"60vmin"} />
+        </div>
+        <svg height={0} width={0}>
+          <defs>
+            <clipPath id="svgPath2" clipPathUnits="objectBoundingBox">
+              <path d="M0.0 0.074L0.019 0.08C0.037 0.085 0.074 0.097 0.111 0.096C0.148 0.095 0.185 0.082 0.222 0.075C0.259 0.069 0.296 0.069 0.333 0.065C0.371 0.061 0.408 0.053 0.445 0.051C0.482 0.048 0.518 0.05 0.555 0.053C0.592 0.056 0.629 0.059 0.667 0.061C0.704 0.062 0.741 0.062 0.778 0.062C0.815 0.062 0.852 0.062 0.889 0.059C0.926 0.055 0.963 0.048 0.981 0.044L1.0 0.041L1.0 0.0L0.981 0.0C0.963 0.0 0.926 0.0 0.889 0.0C0.852 0.0 0.815 0.0 0.778 0.0C0.741 0.0 0.704 0.0 0.667 0.0C0.629 0.0 0.592 0.0 0.555 0.0C0.518 0.0 0.482 0.0 0.445 0.0C0.408 0.0 0.371 0.0 0.333 0.0C0.296 0.0 0.259 0.0 0.222 0.0C0.185 0.0 0.148 0.0 0.111 0.0C0.074 0.0 0.037 0.0 0.019 0.0L0.0 0.0Z"></path>
+              <path d="M0.0 0.17L0.019 0.174C0.037 0.177 0.074 0.185 0.111 0.173C0.148 0.161 0.185 0.129 0.222 0.125C0.259 0.121 0.296 0.146 0.333 0.15C0.371 0.155 0.408 0.14 0.445 0.136C0.482 0.132 0.518 0.14 0.555 0.139C0.592 0.138 0.629 0.128 0.667 0.119C0.704 0.109 0.741 0.1 0.778 0.108C0.815 0.115 0.852 0.14 0.889 0.151C0.926 0.163 0.963 0.16 0.981 0.159L1.0 0.158L1.0 0.039L0.981 0.042C0.963 0.046 0.926 0.053 0.889 0.057C0.852 0.06 0.815 0.06 0.778 0.06C0.741 0.06 0.704 0.06 0.667 0.059C0.629 0.057 0.592 0.053 0.555 0.051C0.518 0.048 0.482 0.046 0.445 0.049C0.408 0.051 0.371 0.059 0.333 0.063C0.296 0.067 0.259 0.067 0.222 0.073C0.185 0.08 0.148 0.093 0.111 0.094C0.074 0.095 0.037 0.083 0.019 0.078L0.0 0.072Z"></path>
+              <path d="M0.0 0.367L0.019 0.378C0.037 0.389 0.074 0.412 0.111 0.409C0.148 0.406 0.185 0.378 0.222 0.364C0.259 0.35 0.296 0.35 0.333 0.334C0.371 0.318 0.408 0.286 0.445 0.294C0.482 0.303 0.518 0.351 0.555 0.365C0.592 0.379 0.629 0.359 0.667 0.35C0.704 0.34 0.741 0.342 0.778 0.351C0.815 0.361 0.852 0.378 0.889 0.378C0.926 0.378 0.963 0.361 0.981 0.352L1.0 0.344L1.0 0.156L0.981 0.157C0.963 0.158 0.926 0.16 0.889 0.149C0.852 0.138 0.815 0.113 0.778 0.106C0.741 0.098 0.704 0.107 0.667 0.117C0.629 0.126 0.592 0.135 0.555 0.136C0.518 0.138 0.482 0.13 0.445 0.134C0.408 0.138 0.371 0.153 0.333 0.148C0.296 0.143 0.259 0.119 0.222 0.123C0.185 0.127 0.148 0.159 0.111 0.171C0.074 0.183 0.037 0.175 0.019 0.172L0.0 0.168Z"></path>
+              <path d="M0.0 0.446L0.019 0.455C 0.037 0.465 0.074 0.483 0.111 0.482C0.148 0.481 0.185 0.46 0.222 0.461C0.259 0.462 0.296 0.485 0.333 0.495C0.371 0.506 0.408 0.504 0.445 0.5C0.482 0.496 0.518 0.49 0.555 0.482C0.592 0.473 0.629 0.462 0.667 0.455C0.704 0.447 0.741 0.443 0.778 0.452C0.815 0.46 0.852 0.481 0.889 0.491C0.926 0.5 0.963 0.498 0.981 0.497L1.0 0.496L1.0 0.342L0.981 0.35C0.963 0.359 0.926 0.376 0.889 0.376C0.852 0.376 0.815 0.359 0.778 0.349C0.741 0.34 0.704 0.338 0.667 0.348C0.629 0.357 0.592 0.377 0.555 0.363C0.518 0.349 0.482 0.301 0.445 0.292C0.408 0.284 0.371 0.316 0.333 0.332C0.296 0.348 0.259 0.348 0.222 0.362C0.185 0.376 0.148 0.404 0.111 0.407C0.074 0.41 0.037 0.387 0.019 0.376L0.0 0.365Z"></path>
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+
+        video: {
+    width: "100%",
+    height: "100%",
+    transform: "translateY(-30%)",
+    objectFit: "cover",
+  },
+  container: {
+    position: "relative",
+    width: "100%",
+    height: "600px",
+    clipPath: "url(#svgPath2)",
+    overflow: "hidden",
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundImage:
+      "linear-gradient(45deg, #3D3D3D 25%, transparent 25%), linear-gradient(-45deg, #3D3D3D 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #3D3D3D 75%), linear-gradient(-45deg, transparent 75%, #3D3D3D 75%)",
+    backgroundSize: "2px 2px",
+    backgroundPosition: "0 0, 1px 0, 1px -1px, 0px 1px",
+
+    zIndex: 1,
+  },
+      */

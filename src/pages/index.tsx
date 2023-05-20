@@ -278,6 +278,7 @@ export default function Home() {
         preload="auto"
         className={classes.video}
       >
+        {/* TODO: GET THE ORIGINAL VIDEO FILE */}
         <source
           src="https://video.wixstatic.com/video/d0cbf8_43c35d32b1be44dcadba66725b707c77/1080p/mp4/file.mp4"
           type="video/mp4"

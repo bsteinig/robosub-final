@@ -10,14 +10,15 @@ import { useEffect, useState } from "react";
 import { useLocalStorage } from "@mantine/hooks";
 import Nav from "@/features/navbar/navbar";
 import Footer from "@/features/footer";
+import Loading from "@/features/loading";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    // setTimeout(() => setLoading(false), 10000);
-    setLoading(false);
+    setTimeout(() => setLoading(false), 1500);
+    // setLoading(false);
   }, []);
 
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -54,6 +55,7 @@ export default function App(props: AppProps) {
             },
           }}
         >
+          {loading && <Loading />}
           <Nav />
           <Component {...pageProps} />
           <Footer />

@@ -193,3 +193,39 @@
     64%  { transform: scale(1,1)      translateY(0); }
     100% { transform: scale(1,1)      translateY(0); }
   }
+
+  .loader-bounce {
+    animation-name: bounce;
+    animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    animation-duration: 1.5s;
+  }
+
+  .main-container { 
+    max-width: 600px; 
+    border: solid 1px green; 
+    padding: 10px; 
+  }
+  
+  
+  .main-container * {
+    padding: 10px;
+    background: #aaa; 
+    border: dashed 5px #000;
+  }
+  
+  .main-container * + * { 
+    margin-top:20px;
+  }
+  
+  .main-header {
+    height:50px; 
+    background:#aaa; 
+    border-color:red;
+    position:-webkit-sticky; 
+    position:sticky; 
+    top:0;
+  }
+  
+  .main-content{
+    min-height:1000px;
+  }

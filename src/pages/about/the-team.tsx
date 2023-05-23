@@ -21,7 +21,7 @@ const useStyles = createStyles((theme) => ({
     background:
       theme.colorScheme === "dark"
         ? theme.colors.dark[7]
-        : theme.colors.gray[0],
+        : theme.colors.gray[1],
   },
   headline: {
     ref: getStylesRef("headline"),
@@ -68,11 +68,11 @@ const useStyles = createStyles((theme) => ({
       boxShadow: `inset 20px 20px 50px 20px ${
         theme.colorScheme === "dark"
           ? theme.colors.dark[7]
-          : theme.colors.gray[0]
+          : theme.colors.gray[1]
       },inset -20px -20px 50px 20px ${
         theme.colorScheme === "dark"
           ? theme.colors.dark[7]
-          : theme.colors.gray[0]
+          : theme.colors.gray[1]
       }`,
       backdropFilter: "blur(100px)",
     },

@@ -13,8 +13,9 @@ import {
   getStylesRef,
   useMantineTheme,
 } from "@mantine/core";
+import { useElementSize } from "@mantine/hooks";
 import { info } from "console";
-import React from "react";
+import React, { useEffect } from "react";
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -27,7 +28,15 @@ const useStyles = createStyles((theme) => ({
     background:
       theme.colorScheme === "dark"
         ? theme.colors.dark[7]
-        : theme.colors.gray[2],
+        : theme.colors.gray[1],
+  },
+  video: {
+    position: "fixed",
+    zIndex: -1,
+    width: "100%",
+    height: "100%",
+    transform: "translateY(-30%)",
+    objectFit: "cover",
   },
   bigHeading: {
     fontSize: "19vw",
@@ -49,28 +58,81 @@ const useStyles = createStyles((theme) => ({
     fontSize: "1.25rem",
   },
   infoSubtitle: {
-    borderBottom: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.colors.gray[9]
-    }`,
-    position: "sticky",
-  },
-  infoContent: {
-    marginLeft: "15%",
-    position: "sticky",
     background:
-    theme.colorScheme === "dark"
-      ? theme.colors.dark[7]
-      : theme.colors.gray[2],
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[7]
+        : theme.colors.gray[1],
+  },
+  infoHeading: {
+    fontSize: "18vw",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[9],
+    gridColumnStart: 2,
+    gridRowStart: 2,
+    lineHeight: 1,
+    background:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[7]
+        : theme.colors.gray[1],
+  },
+  infoGrid: {
+    position: "sticky",
+    display: "grid",
+    gridTemplateColumns: "15% 85%",
+    gridTemplateRows: "30px 1fr",
+    gridGap: "0px",
+
+    "&:before": {
+      content: "''",
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "15%",
+      height: "100%",
+      borderRight: `2px solid ${
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[0]
+          : theme.colors.gray[9]
+      }`,
+    },
+    "&:after": {
+      content: "''",
+      position: "absolute",
+      top: 30,
+      left: 0,
+      width: "100%",
+      height: "80%",
+      borderTop: `2px solid ${
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[0]
+          : theme.colors.gray[9]
+      }`,
+    },
   },
 }));
 
 function About() {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
+  const { ref: stickyRef, width, height: stickyHeight } = useElementSize();
 
   const handleContextMenu = (event: React.MouseEvent<HTMLVideoElement>) => {
     event.preventDefault(); // Prevents the context menu from appearing
   };
+
+  useEffect(() => {
+    if (stickyHeight) {
+      const stickyDiv = document.getElementById("__stickyDiv");
+      if (
+        stickyDiv &&
+        parseInt(stickyDiv.style.height) < window.innerHeight * 1.5
+      ) {
+        stickyDiv.style.height = `${stickyHeight * 2}px`;
+      }
+    }
+  }, [stickyHeight]);
 
   interface dataItem {
     title: string;
@@ -95,24 +157,52 @@ function About() {
 
   const rightCol = infoData.map((item: dataItem, index: number) => {
     return (
-      <>
-        <Text size="lg" style={{ top: 100 * (index + 1)}} className={classes.infoSubtitle}>{item.title}</Text>
-
-        <Box style={{ top: 90 * (index + 1)}} className={classes.infoContent}>
-          <Title className={classes.bigHeading}>{item.content}</Title>
-        </Box>
-      </>
+      <div
+        className={classes.infoGrid}
+        style={{ top: `${100 * index}px` }}
+        key={index}
+      >
+        <Text className={classes.infoSubtitle} size="lg">
+          {item.title}
+        </Text>
+        <Title className={classes.infoHeading}>{item.content}</Title>
+      </div>
     );
   });
 
   return (
     <main className={classes.main}>
-      <Container my={50} size="fluid">
+      <Container py={50} size="fluid">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          onContextMenu={handleContextMenu}
+          preload="auto"
+          className={classes.video}
+        >
+          <source
+            src="https://video.wixstatic.com/video/d0cbf8_140719a68e924d559eae63ca19557246/720p/mp4/file.mp4"
+            type="video/mp4"
+          />
+        </video>
         <Title className={classes.bigHeading} order={1}>
           ABOUT US
         </Title>
         <Divider size={2} className={classes.underline} />
-        <SimpleGrid cols={2}>
+        <SimpleGrid
+          cols={2}
+          spacing="sm"
+          breakpoints={[{ maxWidth: "sm", cols: 1, spacing: "sm" }]}
+          style={{
+            borderBottom: `2px solid ${
+              theme.colorScheme === "dark"
+                ? theme.colors.dark[0]
+                : theme.colors.gray[9]
+            }`,
+          }}
+        >
           <Text className={classes.intro}>
             Michigan Robotic Submarine is a student-led engineering team
             comprised of primarily undergraduate students with diverse
@@ -123,7 +213,7 @@ function About() {
             sub-nautical tasks, like sonar navigation and torpedo target
             shooting.
           </Text>
-          <div>
+          <div ref={stickyRef} id="__stickyDiv">
             {rightCol}
           </div>
         </SimpleGrid>

@@ -1,16 +1,11 @@
 import {
-  Box,
-  Center,
   Container,
   Divider,
-  Group,
-  Image,
   SimpleGrid,
   Stack,
   Text,
   Title,
   createStyles,
-  getStylesRef,
   useMantineTheme,
 } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";

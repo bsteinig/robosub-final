@@ -11,6 +11,7 @@ import { useLocalStorage } from "@mantine/hooks";
 import Nav from "@/features/navbar/navbar";
 import Footer from "@/features/footer";
 import Loading from "@/features/loading";
+import Markers from "@/features/googleMaps/markers";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;

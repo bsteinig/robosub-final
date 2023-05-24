@@ -240,7 +240,7 @@ export default function Home() {
             height="124"
             viewBox="0 0 24 24"
             className="icon icon-tabler grabby bounce"
-            stroke-width="1"
+            strokeWidth="1"
             stroke="none"
             fill="#fff"
           >

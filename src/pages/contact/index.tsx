@@ -23,6 +23,7 @@ import { useInterval } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import { IconArrowUpRight } from "@tabler/icons-react";
 import Markers from "@/features/googleMaps/markers";
+import { Parallax } from "react-scroll-parallax";
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -173,7 +174,7 @@ function Contact() {
   const theme = useMantineTheme();
 
   const [splash, setSplash] = useState(true);
-  const [slash, setSlash] = useState(0);
+  const [slash, setSlash] = useState(1);
   const slashInterval = useInterval(() => {
     setSlash((c) => (c + 1) % 12);
   }, 1000);
@@ -374,39 +375,32 @@ function Contact() {
         </svg>
       </div>
       <Container size="fluid" className={classes.infoBox} pt={60}>
-        <SimpleGrid
-          cols={2}
-          style={{ minHeight: 500 }}
-          breakpoints={[{ maxWidth: 870, cols: 1, spacing: "md" }]}
-        >
-          <Markers />
-          <Paper className={classes.teamInfo} shadow="md" radius="md" p="xl">
-            <Stack>
-              <Stack>
-                <Title color="gray.1" style={{ fontWeight: 500 }}>
-                  email:{" "}
-                </Title>
-                <Text color="gray.1" size="xl" style={{ width: "100%", wordBreak: "break-word" }}>
-                  MichiganRoboticSubmarine@gmail.com
-                </Text>
-              </Stack>
-              <Stack>
-                <Title color="gray.1" style={{ fontWeight: 500 }}>
-                  workspace:{" "}
-                </Title>
-                <Text
-                  
-                  color="gray.1"
-                  size="xl"
-                >
-                  Wilson Student Project Center
-                  <br /> 2603 Draper Dr. <br />
-                  Ann Arbor, MI 48109
-                </Text>
-              </Stack>
+        <Container size="lg">
+          <Group mb={30} position="apart">
+            <Stack spacing={0} style={{ textAlign: "center" }}>
+              <Title order={5} color="gray.1" style={{ fontWeight: 500 }}>
+                email:{" "}
+              </Title>
+              <Text
+                color="gray.1"
+                size="lg"
+                style={{ width: "100%", wordBreak: "break-word" }}
+              >
+                MichiganRoboticSubmarine@gmail.com
+              </Text>
             </Stack>
-          </Paper>
-        </SimpleGrid>
+            <Stack spacing={0} style={{ textAlign: "center" }}>
+              <Title order={5} color="gray.1" style={{ fontWeight: 500 }}>
+                workspace:{" "}
+              </Title>
+              <Text color="gray.1" size="lg">
+                Wilson Student Project Center 2603 Draper Dr. Ann Arbor, MI
+                48109
+              </Text>
+            </Stack>
+          </Group>
+          <Markers />
+        </Container>
       </Container>
     </main>
   );

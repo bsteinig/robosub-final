@@ -12,6 +12,7 @@ import Nav from "@/features/navbar/navbar";
 import Footer from "@/features/footer";
 import Loading from "@/features/loading";
 import Markers from "@/features/googleMaps/markers";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -56,10 +57,12 @@ export default function App(props: AppProps) {
             },
           }}
         >
-          {loading && <Loading />}
-          <Nav />
-          <Component {...pageProps} />
-          <Footer />
+          <ParallaxProvider>
+            {loading && <Loading />}
+            <Nav />
+            <Component {...pageProps} />
+            <Footer />
+          </ParallaxProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>

@@ -1242,6 +1242,11 @@ earcut@^2.2.2:
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.2.4.tgz#6d02fd4d68160c114825d06890a92ecaae60343a"
   integrity sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==
 
+embla-carousel-autoplay@^8.0.0-rc03:
+  version "8.0.0-rc05"
+  resolved "https://registry.yarnpkg.com/embla-carousel-autoplay/-/embla-carousel-autoplay-8.0.0-rc05.tgz#582af3ea28ebb92eb2a97122878a24bd53b5d98d"
+  integrity sha512-oOllXZ5W7VO3o9Te2iUZOP/9BuJHuXrkE4+p0pleYjKmZPNNmUqIQwhEJJ2/ULAQJ7zT9bvoFtkYb8xEg+Ewaw==
+
 embla-carousel-react@^8.0.0-rc03:
   version "8.0.0-rc03"
   resolved "https://registry.yarnpkg.com/embla-carousel-react/-/embla-carousel-react-8.0.0-rc03.tgz#92a5388fe9364974a9eafe0fb9153b88a6457368"

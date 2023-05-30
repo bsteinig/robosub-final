@@ -11,7 +11,6 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useHover, useToggle } from "@mantine/hooks";
-import { IconAddressBook } from "@tabler/icons-react";
 import React from "react";
 import HeadShotCard from "../components/headshotCard";
 

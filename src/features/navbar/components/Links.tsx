@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
 import Link from "next/link";
+import { useMediaQuery } from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -84,6 +85,8 @@ export function LinksGroup({
 }: LinksGroupProps) {
   const { classes, theme, cx } = useStyles();
 
+  const mobileView = useMediaQuery("(max-width: 800px)");
+
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
   const ChevronIcon = IconChevronRight;
@@ -104,9 +107,9 @@ export function LinksGroup({
   return (
     <Menu
       classNames={{ dropdown: classes.menuDropdown }}
-      trigger="hover"
+      trigger={ mobileView ? "click" : "hover" }
       shadow="md"
-      offset={20}
+      offset={mobileView ? 5 : 20}
     >
       <Menu.Target>
         <UnstyledButton

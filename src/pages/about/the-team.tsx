@@ -1,5 +1,5 @@
 import { spin } from "@/components/keyframes/spin";
-import Gallery from "@/features/headshotGallery/Gallery";
+import Gallery from "@/features/about/Gallery";
 import {
   Container,
   Text,

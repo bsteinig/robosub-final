@@ -6,6 +6,7 @@ import {
   UnstyledButton,
   createStyles,
   Menu,
+  CSSObject,
 } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
 import Link from "next/link";
@@ -75,6 +76,34 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+interface Props {
+  href?: string;
+  active?: boolean;
+  className: string;
+  children: React.ReactNode;
+}
+
+const ConditionalButton = ({ href, active, className, children }: Props) => {
+  const { classes, cx } = useStyles();
+
+  if (href) {
+    return (
+      <UnstyledButton className={className} component={Link} href={href}>
+        {children}
+      </UnstyledButton>
+    );
+  } else {
+    return (
+      <UnstyledButton
+        className={className}
+
+      >
+        {children}
+      </UnstyledButton>
+    );
+  }
+};
+
 export function LinksGroup({
   icon: Icon,
   label,
@@ -82,7 +111,8 @@ export function LinksGroup({
   links,
   active,
   href,
-}: LinksGroupProps) {
+  setMobileOpen,
+}: LinksGroupProps,) {
   const { classes, theme, cx } = useStyles();
 
   const mobileView = useMediaQuery("(max-width: 800px)");
@@ -98,6 +128,7 @@ export function LinksGroup({
         className={classes.link}
         href={link.link}
         lineClamp={2}
+        onClick={() => setMobileOpen && setMobileOpen(false)}
       >
         {link.label}
       </Text>
@@ -107,15 +138,16 @@ export function LinksGroup({
   return (
     <Menu
       classNames={{ dropdown: classes.menuDropdown }}
-      trigger={ mobileView ? "click" : "hover" }
+      trigger={mobileView ? "click" : "hover"}
       shadow="md"
       offset={mobileView ? 5 : 20}
     >
       <Menu.Target>
         <UnstyledButton
           className={cx(classes.control, { [classes.active]: active })}
-          component={Link}
           href={href}
+          component={href ? Link : undefined}
+          onClick={() => href && setMobileOpen && setMobileOpen(false)}
         >
           <Group position="apart" spacing={0}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -148,5 +180,6 @@ interface LinksGroupProps {
   initiallyOpened?: boolean;
   links?: Array<{ label: string; link: string }>;
   active?: boolean;
-  href: string;
+  href?: string;
+  setMobileOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }

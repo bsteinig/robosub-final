@@ -132,6 +132,11 @@ function Nav({ borderColor = "white" }) {
   const searchIcon = useMediaQuery("(max-width: 860px)");
 
   const [mobileOpen, setMobileOpen] = useState(false);
+  const handleMobileToggle = () => {
+    const scrollState = mobileOpen ? "visible" : "hidden";
+    document.body.style.overflow = scrollState;
+    setMobileOpen(!mobileOpen);
+  }
 
   // set loaded to true after 1 second
   useEffect(() => {
@@ -160,7 +165,7 @@ function Nav({ borderColor = "white" }) {
   }, []);
 
   const links = data.map((item, index) => (
-    <LinksGroup {...item} key={item.label} />
+    <LinksGroup {...item} key={item.label} setMobileOpen={setMobileOpen} />
   ));
 
   return (
@@ -181,7 +186,7 @@ function Nav({ borderColor = "white" }) {
       >
         {expanded && (
           <MediaQuery largerThan={700} styles={{ display: 'none' }}>
-            <Burger opened={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)} aria-label="Open Menu" />
+            <Burger opened={mobileOpen} onClick={() => handleMobileToggle()} aria-label="Open Menu" />
           </MediaQuery>
         )}
         <UnstyledButton
@@ -275,7 +280,7 @@ function Nav({ borderColor = "white" }) {
         )}
         <Transition mounted={mobileOpen} transition="scale-y" duration={400} timingFunction="ease">
           {(styles) =>
-            <Paper className={classes.mobileMenu} style={{ height: mobileOpen ? 'auto' : 0, ...styles }}>
+            <Paper className={classes.mobileMenu} style={{ height: 'auto', ...styles }}>
               <Stack spacing="md">
                 {links}
               </Stack>

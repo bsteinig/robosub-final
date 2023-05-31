@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useHover, useToggle } from "@mantine/hooks";
 import React from "react";
-import HeadShotCard from "../components/headshotCard";
+import HeadShotCard from "./components/headshotCard";
 
 const useStyles = createStyles((theme) => ({
   card: {

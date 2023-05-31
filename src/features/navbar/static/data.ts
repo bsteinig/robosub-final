@@ -9,41 +9,37 @@ import {
 
 interface dataItem {
   label: string;
-  href: string;
+  href?: string;
   icon: Icon;
   links?: Array<{ label: string; link: string }>;
 }
 
-interface dataList extends Array<dataItem> {}
+interface dataList extends Array<dataItem> { }
 
 export const data: dataList = [
   {
     label: "About",
-    href: "/about",
     icon: IconInfoSquareRounded,
     links: [
       { label: "Who We Are", link: "/about" },
       { label: "Our Team", link: "/about/the-team" },
-      { label: "Progress", link: "/progress"},
+      { label: "Progress", link: "/progress" },
     ],
   },
   {
     label: "Technical",
-    href: "/vehicles",
     icon: IconRobot,
     links: [
-      { label: "Erie 2022", link: "/erie" },
-      { label: "Huron 2021", link: "/huron" },
-      { label: "Blue ROV 2020", link: "/bluerov" },
+      { label: "Erie 2022", link: "/vehicles/erie" },
+      { label: "Huron 2021", link: "/vehicles/huron" },
     ],
   },
   {
     label: "Library",
-    href: "/library",
     icon: IconCameraCode,
     links: [
-      { label: "Media", link: "/media" },
-      { label: "Documentation", link: "/documentation" },
+      { label: "Media", link: "/library/media" },
+      { label: "Documentation", link: "/library/documentation" },
     ],
   },
   {

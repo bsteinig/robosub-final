@@ -18,6 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/features/googleMaps/markers.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/features/contact/markers.jsx"],
   "exclude": ["node_modules"]
 }

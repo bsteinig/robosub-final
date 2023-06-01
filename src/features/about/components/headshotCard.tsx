@@ -24,21 +24,21 @@ const useStyles = createStyles((theme) => ({
 
     aspectRatio: "4/5",
     width: "min(250px, 100%)",
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[4]
-        : theme.colors.gray[3],
+    backgroundImage: "url(/headshots/headshotBG.png)",
+    backgroundSize: "cover",
     overflow: "hidden",
   },
   expandPic: {
     transform: "scale(1.1)",
+    backdropFilter: "blur(2px) brightness(0.8)",
+    filter: "brightness(1.2)",
   },
   pic: {
     position: "relative",
     transformOrigin: "center",
     transform: "scale(1)",
     height: "100%",
-    transition: "transform 400ms ease",
+    transition: "transform 400ms ease, filter 200ms ease, backdrop-filter 50ms ease",
   },
   nameplate: {
     position: "absolute",
@@ -101,7 +101,7 @@ function HeadShotCard({
   const { hovered, ref: cardRef } = useHover();
   const [value, toggle] = useToggle([false, true] as const);
   const theme = useMantineTheme();
-  
+
   useEffect(() => {
     if (!hovered) {
       toggle(false);
@@ -109,16 +109,13 @@ function HeadShotCard({
   }, [hovered, toggle]);
 
   return (
-    <Paper
-      ref={cardRef}
-      radius={0}
-      className={cx(classes.card)}
-      style={{ backgroundImage: `url(${bg})` }}
-    >
+    <Paper ref={cardRef} radius={0} className={cx(classes.card)}>
+      <BackgroundImage style={{ position: 'absolute', top: 0, left: 0, height: '100%'}} src={bg} />
       <BackgroundImage
         className={cx(classes.pic, { [classes.expandPic]: hovered })}
         src={src}
       />
+      
       <Paper radius="xl" className={classes.nameplate}>
         <Stack align="center" spacing={0}>
           <Text size="md" className={classes.name}>

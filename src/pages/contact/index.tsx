@@ -21,7 +21,7 @@ import { gradientAnimation } from "@/components/keyframes/animatedText";
 import { useInterval } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import { IconArrowUpRight } from "@tabler/icons-react";
-import Markers from "@/features/googleMaps/markers";
+import Markers from "@/features/contact/markers";
 
 const useStyles = createStyles((theme) => ({
   main: {

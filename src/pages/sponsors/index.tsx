@@ -260,7 +260,7 @@ function Sponsors() {
             </UnstyledButton>
             <UnstyledButton
               className={classes.cta}
-              style={{ backgroundColor: theme.colors.blue[7] }}
+              style={{ backgroundColor: theme.fn.rgba(theme.colors.blue[5], 0.5) }}
             >
               Get Involved
             </UnstyledButton>

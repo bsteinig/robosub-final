@@ -125,7 +125,16 @@ function About() {
           students.
         </Text>
       </Container>
-      <Gallery filters={["all"]} />
+      <Gallery
+        filters={[
+          "all",
+          "leadership",
+          "software",
+          "mechanical",
+          "electrical",
+          "business/media",
+        ]}
+      />
     </main>
   );
 }

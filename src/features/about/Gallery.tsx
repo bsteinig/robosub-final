@@ -1,114 +1,75 @@
-import { spin } from "@/components/keyframes/spin";
-import {
-  ActionIcon,
-  BackgroundImage,
-  Container,
-  Paper,
-  SimpleGrid,
-  Stack,
-  Text,
-  createStyles,
-  useMantineTheme,
-} from "@mantine/core";
-import { useHover, useToggle } from "@mantine/hooks";
-import React from "react";
+import { Chip, Container, Group, SimpleGrid } from "@mantine/core";
+import React, { use, useEffect, useState } from "react";
 import HeadShotCard from "./components/headshotCard";
-
-const useStyles = createStyles((theme) => ({
-  card: {
-    position: "relative",
-
-    aspectRatio: "4/5",
-    width: "min(250px, 100%)",
-    backgroundImage: 'url("/assets/rect.svg")',
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[4]
-        : theme.colors.gray[3],
-    overflow: "hidden",
-  },
-  expandPic: {
-    transform: "scale(1.1)",
-  },
-  pic: {
-    position: "relative",
-    transformOrigin: "center",
-    transform: "scale(1)",
-    height: "100%",
-    transition: "transform 400ms ease",
-  },
-  nameplate: {
-    position: "absolute",
-    bottom: "5%",
-    left: "50%",
-    transform: "translateX(-50%)",
-
-    width: "80%",
-    border: `2px solid ${
-      theme.colorScheme === "dark" ? theme.colors.gray[0] : theme.colors.gray[9]
-    }`,
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[5]
-        : theme.colors.gray[1],
-  },
-  name: {
-    fontWeight: 600,
-  },
-  toggleInfo: {
-    position: "absolute",
-    top: "2.5%",
-    right: "2.5%",
-    transition: "all 300ms ease",
-    transform: "rotateY(90deg)",
-  },
-  shown: {
-    transform: "rotateY(0deg)",
-  },
-}));
+import { teamData } from "./static/teamData";
+import { useListState } from "@mantine/hooks";
 
 function Gallery({ filters }: { filters: string[] }) {
-  const { classes, cx } = useStyles();
-  const { hovered, ref: cardRef } = useHover();
-  const [value, toggle] = useToggle(["light", "dark"] as const);
-  const theme = useMantineTheme();
+  const bgs = ["/assets/rect.svg", "/assets/circle.svg", "/assets/lines.svg"];
+
+  const [team, setTeam] = useState(teamData);
+  const [filter, setFilter] = useState<string>("all");
+
+  useEffect(() => {
+    console.log(filter);
+    if (filter === "all") {
+      setTeam(teamData);
+    } else if (filter === "leadership") {
+      setTeam(teamData.filter((member) => member.Leadership));
+    } else {
+      setTeam(
+        teamData.filter((member) =>
+          filter.includes(member.Subteam.toLowerCase())
+        )
+      );
+    }
+  }, [filter]);
+
+  const cards = team.map((member, index) => {
+    const bg = bgs[index % 3];
+    return (
+      <HeadShotCard
+        key={index}
+        name={member.Name}
+        title={member.Leadership ? member.Leadership : member.Subteam}
+        src={`/headshots/${member.uniqname}.png`}
+        email={member.email}
+        linkedin={member.Linkedin ? member.Linkedin : ""}
+        bg={bg}
+      />
+    );
+  });
+
+  const filterButtons = filters.map((filter, index) => {
+    return (
+      <Chip
+        key={index}
+        value={filter}
+        variant="filled"
+        size="md"
+        style={{ textTransform: "capitalize" }}
+      >
+        {filter}
+      </Chip>
+    );
+  });
 
   return (
     <Container size="lg">
-      <SimpleGrid cols={4} style={{ justifyItems: 'center' }}>
-        <HeadShotCard
-          name="Andrew Huston"
-          title="Software"
-          src="/headshots/ahuston.png"
-          email="ahuston@umich.edu"
-          linkedin="https://linkedin.com/ahuston"
-          bg="/assets/rect.svg"
-        />
-                <HeadShotCard
-          name="Andrew Huston"
-          title="Software"
-          src="/headshots/ahuston.png"
-          email="ahuston@umich.edu"
-          linkedin="https://linkedin.com/ahuston"
-          bg="/assets/circle.svg"
-        />
-                <HeadShotCard
-          name="Andrew Huston"
-          title="Software"
-          src="/headshots/ahuston.png"
-          email="ahuston@umich.edu"
-          linkedin="https://linkedin.com/ahuston"
-          bg="/assets/lines.svg"
-        />
-                <HeadShotCard
-          name="Andrew Huston"
-          title="Software"
-          src="/headshots/ahuston.png"
-          email="ahuston@umich.edu"
-          linkedin="https://linkedin.com/ahuston"
-          bg="/assets/rect.svg"
-        />
-
+      <Chip.Group multiple={false} value={filter} onChange={setFilter}>
+        <Group mt={10} mb={30}>{filterButtons}</Group>
+      </Chip.Group>
+      <SimpleGrid
+        mb={40}
+        cols={4}
+        breakpoints={[
+          { maxWidth: "62rem", cols: 3, spacing: "md" },
+          { maxWidth: "48rem", cols: 2, spacing: "sm" },
+          { maxWidth: "36rem", cols: 1, spacing: "sm" },
+        ]}
+        style={{ justifyItems: "center" }}
+      >
+        {cards}
       </SimpleGrid>
     </Container>
   );

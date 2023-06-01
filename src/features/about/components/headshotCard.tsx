@@ -2,6 +2,7 @@ import {
   ActionIcon,
   BackgroundImage,
   Container,
+  Image,
   Paper,
   SimpleGrid,
   Stack,
@@ -10,6 +11,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useHover, useToggle } from "@mantine/hooks";
+import { IconUser } from "@tabler/icons-react";
 import {
   IconAddressBook,
   IconBrandLinkedin,
@@ -38,7 +40,11 @@ const useStyles = createStyles((theme) => ({
     transformOrigin: "center",
     transform: "scale(1)",
     height: "100%",
-    transition: "transform 400ms ease, filter 200ms ease, backdrop-filter 50ms ease",
+    transition:
+      "transform 400ms ease, filter 200ms ease, backdrop-filter 50ms ease",
+  },
+  hidePlaceholder: {
+    color: "transparent",
   },
   nameplate: {
     position: "absolute",
@@ -87,11 +93,21 @@ const useStyles = createStyles((theme) => ({
     right: "2.5%",
     transform: "rotateY(0deg)",
   },
+  picPlaceholder: {
+    aspectRatio: "4/5",
+    width: "min(250px, 100%)",
+
+    display: "grid",
+    placeItems: "center",
+    backgroundColor: "#00000033",
+    color: "#fff",
+  },
 }));
 
 function HeadShotCard({
   name,
   title,
+  lead,
   src,
   email,
   linkedin,
@@ -110,12 +126,22 @@ function HeadShotCard({
 
   return (
     <Paper ref={cardRef} radius={0} className={cx(classes.card)}>
-      <BackgroundImage style={{ position: 'absolute', top: 0, left: 0, height: '100%'}} src={bg} />
       <BackgroundImage
+        style={{ position: "absolute", top: 0, left: 0, height: "100%" }}
+        src={bg}
+      />
+      <Image
+        alt={name}
+        withPlaceholder={true}
         className={cx(classes.pic, { [classes.expandPic]: hovered })}
+        classNames={{
+          image: classes.hidePlaceholder,
+          placeholder: classes.picPlaceholder,
+        }}
+        placeholder={<IconUser color="#fff" size={256} />}
         src={src}
       />
-      
+
       <Paper radius="xl" className={classes.nameplate}>
         <Stack align="center" spacing={0}>
           <Text size="md" className={classes.name}>
@@ -128,9 +154,9 @@ function HeadShotCard({
       </Paper>
       <ActionIcon
         className={cx(classes.toggleInfo, { [classes.shown]: hovered })}
-        color={theme.colorScheme === "dark" ? "indigo.2" : "indigo.6"}
+        color={theme.colorScheme === "dark" ? "indigo.4" : "indigo.4"}
         radius="xl"
-        variant="light"
+        variant="filled"
         onClick={() => toggle()}
       >
         <IconAddressBook size={20} />
@@ -146,17 +172,19 @@ function HeadShotCard({
       >
         <IconMail size={24} />
       </ActionIcon>
-      <ActionIcon
-        className={cx(classes.infoCard, { [classes.linkedInExpand]: value })}
-        color={theme.colorScheme === "dark" ? "blue.2" : "blue.6"}
-        size="lg"
-        radius="xl"
-        variant="light"
-        component="a"
-        href={linkedin}
-      >
-        <IconBrandLinkedin size={24} />
-      </ActionIcon>
+      {linkedin && (
+        <ActionIcon
+          className={cx(classes.infoCard, { [classes.linkedInExpand]: value })}
+          color={theme.colorScheme === "dark" ? "blue.2" : "blue.6"}
+          size="lg"
+          radius="xl"
+          variant="light"
+          component="a"
+          href={linkedin}
+        >
+          <IconBrandLinkedin size={24} />
+        </ActionIcon>
+      )}
     </Paper>
   );
 }
@@ -166,6 +194,7 @@ export default HeadShotCard;
 interface HeadShotCardProps {
   name: string;
   title: string;
+  lead?: string;
   src: string;
   email: string;
   linkedin: string;

@@ -1,4 +1,3 @@
-import { heartBeat } from '@/components/keyframes/heartBeat';
 import { Accordion, Container, Grid, Image, Text, Title, createStyles, rem } from '@mantine/core';
 import { Icon } from '@tabler/icons-react';
 import React from 'react'
@@ -36,6 +35,8 @@ const useStyles = createStyles((theme) => ({
 function DetailsSection({ title, overview, components }: DetailsSectionProps) {
 
     const { classes } = useStyles();
+
+    console.log(components)
 
     const renderMedia = (media: string) => {
         // if media url is a video url (mp4, etc.) then render video, else render image

@@ -277,8 +277,11 @@ function Vehicle() {
                         <Title className={classes.sectionHeading}>Skills Videos</Title>
                     </Center>
                     <SimpleGrid py={'5vh'} cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1, spacing: 'sm' },]} style={{ justifyItems: 'center' }}>
-                        <VideoCard {...vehicle?.media.videos[0]} />
-                        <VideoCard {...vehicle?.media.videos[1]} />
+                        {
+                            vehicle?.media.videos.map((video, i) => (
+                                <VideoCard key={i} {...video} />
+                            ))
+                        }
                     </SimpleGrid>
                     <Center>
                         <UnstyledButton className={classes.cta} component='a' href={vehicle?.media.report}>

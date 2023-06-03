@@ -80,14 +80,13 @@ const useStyles = createStyles((theme) => ({
     width: "100%",
   },
   blueSection: {
-    backgroundColor: theme.colors.blue[9],
-    minHeight: 600,
+    backgroundColor: '#0d4a7d',
     position: "relative",
     padding: 0,
     zIndex: 2,
   },
   title: {
-    fontSize: "min(7vw, 60px)",
+    fontSize: "min(7vw, 70px)",
     textAlign: "center",
     color: theme.colorScheme === "dark" ? theme.white : theme.colors.gray[3],
   },
@@ -121,6 +120,19 @@ const useStyles = createStyles((theme) => ({
       transform: "translateY(2px) scale(0.98)",
       boxShadow: theme.shadows.xl,
     },
+  },
+  spacer: {
+    aspectRatio: '1200/200',
+    width: '100%',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    zIndex: 3,
+    position: 'relative',
+  },
+
+  bottomSvg: {
+    backgroundImage: 'url(/assets/bottom.svg)',
   },
 }));
 
@@ -183,7 +195,7 @@ function Sponsors() {
               <svg viewBox="0 0 1000 200" width="100%">
                 <path
                   d="M0 169L33.3 165.5C66.7 162 133.3 155 200 156.5C266.7 158 333.3 168 400 170.3C466.7 172.7 533.3 167.3 600 169.2C666.7 171 733.3 180 800 178C866.7 176 933.3 163 1000 160.8C1066.7 158.7 1133.3 167.3 1200 168.2C1266.7 169 1333.3 162 1400 162.8C1466.7 163.7 1533.3 172.3 1600 173.3C1666.7 174.3 1733.3 167.7 1800 163.2C1866.7 158.7 1933.3 156.3 1966.7 155.2L2000 154L2000 201L1966.7 201C1933.3 201 1866.7 201 1800 201C1733.3 201 1666.7 201 1600 201C1533.3 201 1466.7 201 1400 201C1333.3 201 1266.7 201 1200 201C1133.3 201 1066.7 201 1000 201C933.3 201 866.7 201 800 201C733.3 201 666.7 201 600 201C533.3 201 466.7 201 400 201C333.3 201 266.7 201 200 201C133.3 201 66.7 201 33.3 201L0 201Z"
-                  fill={`${theme.colors.blue[9]}`}
+                  fill={`#0d4a7d`}
                 ></path>
               </svg>
             </Parallax>
@@ -216,7 +228,7 @@ function Sponsors() {
             ></path>
             <path
               d="M0 169L33.3 165.5C66.7 162 133.3 155 200 156.5C266.7 158 333.3 168 400 170.3C466.7 172.7 533.3 167.3 600 169.2C666.7 171 733.3 180 800 178C866.7 176 933.3 163 1000 160.8C1066.7 158.7 1133.3 167.3 1200 168.2C1266.7 169 1333.3 162 1400 162.8C1466.7 163.7 1533.3 172.3 1600 173.3C1666.7 174.3 1733.3 167.7 1800 163.2C1866.7 158.7 1933.3 156.3 1966.7 155.2L2000 154L2000 201L1966.7 201C1933.3 201 1866.7 201 1800 201C1733.3 201 1666.7 201 1600 201C1533.3 201 1466.7 201 1400 201C1333.3 201 1266.7 201 1200 201C1133.3 201 1066.7 201 1000 201C933.3 201 866.7 201 800 201C733.3 201 666.7 201 600 201C533.3 201 466.7 201 400 201C333.3 201 266.7 201 200 201C133.3 201 66.7 201 33.3 201L0 201Z"
-              fill={`${theme.colors.blue[9]}`}
+              fill={`#0d4a7d`}
             ></path>
           </svg>
         )}
@@ -270,20 +282,12 @@ function Sponsors() {
       <Container fluid className={classes.blueSection}>
         {heroTransition()}
         <Container fluid className={classes.blueSection}>
-          <Container size="lg" style={{ zIndex: 2 }}>
+          <Container py={30} size="lg" style={{ zIndex: 2 }}>
             <Title className={classes.title}>2023 Sponsors</Title>
-            <Group>
-              <Stack>
-                <UnstyledButton className={classes.sponsorTier}>
-                  Captain
-                </UnstyledButton>
-                <Divider size="lg" orientation="vertical" />
-              </Stack>
-              <SponsorCard size="lg" />
-            </Group>
           </Container>
         </Container>
       </Container>
+      <div className={cx(classes.spacer, classes.bottomSvg)}></div>
     </main>
   );
 }

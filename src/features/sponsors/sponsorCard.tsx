@@ -29,9 +29,9 @@ const cardStyles = createStyles((theme) => ({
 }));
 
 const sponsorSizes = {
-  sm: "200px",
-  md: "400px",
-  lg: "600px",
+  sm: "150px",
+  md: "300px",
+  lg: "500px",
 };
 
 function SponsorCard({ size }: { size: "sm" | "md" | "lg" }) {

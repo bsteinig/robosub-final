@@ -1,4 +1,5 @@
 import SponsorCard from "@/features/sponsors/sponsorCard";
+import SponsorSection from "@/features/sponsors/sponsorSection";
 import {
   Button,
   Container,
@@ -80,7 +81,7 @@ const useStyles = createStyles((theme) => ({
     width: "100%",
   },
   blueSection: {
-    backgroundColor: '#0d4a7d',
+    backgroundColor: "#0d4a7d",
     position: "relative",
     padding: 0,
     zIndex: 2,
@@ -122,17 +123,17 @@ const useStyles = createStyles((theme) => ({
     },
   },
   spacer: {
-    aspectRatio: '1200/200',
-    width: '100%',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    aspectRatio: "1200/200",
+    width: "100%",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
     zIndex: 3,
-    position: 'relative',
+    position: "relative",
   },
 
   bottomSvg: {
-    backgroundImage: 'url(/assets/bottom.svg)',
+    backgroundImage: "url(/assets/bottom.svg)",
   },
 }));
 
@@ -272,7 +273,9 @@ function Sponsors() {
             </UnstyledButton>
             <UnstyledButton
               className={classes.cta}
-              style={{ backgroundColor: theme.fn.rgba(theme.colors.blue[5], 0.5) }}
+              style={{
+                backgroundColor: theme.fn.rgba(theme.colors.blue[5], 0.5),
+              }}
             >
               Get Involved
             </UnstyledButton>
@@ -288,6 +291,31 @@ function Sponsors() {
         </Container>
       </Container>
       <div className={cx(classes.spacer, classes.bottomSvg)}></div>
+      <SponsorSection
+        title="Captain"
+        logoSize="lg"
+        sponsors={[{ name: "ford", link: "https://ford.com" }]}
+      />
+      <SponsorSection
+        title="Commander"
+        logoSize="lg"
+        sponsors={[{ name: "ford", link: "https://ford.com" }]}
+      />
+      <SponsorSection
+        title="Crew"
+        logoSize="md"
+        sponsors={[{ name: "ford", link: "https://ford.com" }]}
+      />
+      <SponsorSection
+        title="Navigator"
+        logoSize="md"
+        sponsors={[{ name: "ford", link: "https://ford.com" }]}
+      />
+      <SponsorSection
+        title="Mate"
+        logoSize="sm"
+        sponsors={[{ name: "ford", link: "https://ford.com" }]}
+      />
     </main>
   );
 }

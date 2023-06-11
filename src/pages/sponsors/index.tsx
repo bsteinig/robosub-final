@@ -288,6 +288,12 @@ function Sponsors() {
         </Container>
       </Container>
       <div className={cx(classes.spacer, classes.bottomSvg)}></div>
+      <Container fluid p={0}>
+        <Container size="md" className={classes.sponsorContainer}>
+          <SponsorCard size='lg' />
+        </Container>
+
+      </Container>
     </main>
   );
 }

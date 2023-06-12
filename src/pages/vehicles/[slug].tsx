@@ -207,9 +207,11 @@ function Vehicle() {
     const [description, setDescription] = useState<string>('');
 
     useEffect(() => {
-        if (slug && !vehicle) {
+        console.log(slug)
+        if (slug) {
             const data = vehicles[slug as keyof typeof vehicles]; // this is why typescript is stupid
             setVehicle(data);
+            console.log('here')
         }
     }, [slug]);
 

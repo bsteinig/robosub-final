@@ -16,18 +16,16 @@ import { IconBrandAirbnb } from "@tabler/icons-react";
 const useStyles = createStyles((theme) => ({
   divider: {
     position: "relative",
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     minHeight: 400,
-
   },
   dividerText: {
     position: "relative",
     textOrientation: "mixed",
     writingMode: "vertical-rl",
     zIndex: 2,
-
   },
   svgBorder: {
     marginTop: "35px",
@@ -50,13 +48,18 @@ function SponsorSection({ title, logoSize, sponsors }: SponsorSectionProps) {
           <div className={classes.svgBorder} />
         </Grid.Col>
         <Grid.Col className={classes.divider} span={1}>
-
           <Title mt={0} order={2} className={classes.dividerText}>
             {title}
           </Title>
         </Grid.Col>
         <Grid.Col span={11}>
-          <SimpleGrid pt={50} cols={2} spacing={10} style={{ justifyItems: 'center' }}>
+          <SimpleGrid
+            pt={50}
+            cols={2}
+            spacing={10}
+            breakpoints={[{ maxWidth: "72rem", cols: 1, spacing: "xl" }]}
+            style={{ justifyItems: "center" }}
+          >
             <SponsorCard size={logoSize} />
             <SponsorCard size={logoSize} />
           </SimpleGrid>

@@ -1,7 +1,7 @@
 import { Chip, Container, Group, SimpleGrid } from "@mantine/core";
 import React, { use, useEffect, useState } from "react";
-import HeadShotCard from "./components/headshotCard";
-import { teamData } from "./static/teamData";
+import HeadShotCard from "./headshotCard";
+import { teamData } from "../static/teamData";
 import { useListState } from "@mantine/hooks";
 
 function Gallery({ filters }: { filters: string[] }) {

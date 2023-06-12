@@ -132,11 +132,14 @@ function Nav({ borderColor = "white" }) {
   const searchIcon = useMediaQuery("(max-width: 860px)");
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const handleMobileToggle = () => {
-    const scrollState = mobileOpen ? "visible" : "hidden";
-    document.body.style.overflow = scrollState;
-    setMobileOpen(!mobileOpen);
-  }
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+  }, [mobileOpen]);
 
   // set loaded to true after 1 second
   useEffect(() => {
@@ -186,7 +189,7 @@ function Nav({ borderColor = "white" }) {
       >
         {expanded && (
           <MediaQuery largerThan={700} styles={{ display: 'none' }}>
-            <Burger opened={mobileOpen} onClick={() => handleMobileToggle()} aria-label="Open Menu" />
+            <Burger opened={mobileOpen} onClick={() => setMobileOpen(!mobileOpen)} aria-label="Open Menu" />
           </MediaQuery>
         )}
         <UnstyledButton

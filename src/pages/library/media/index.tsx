@@ -1,8 +1,8 @@
-import { createStyles, Overlay, Container, Title, Button, Text, rem, ActionIcon, Group, useMantineTheme } from '@mantine/core';
+import { createStyles, Container, Title, Text, rem, ActionIcon, Group, useMantineTheme } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandYoutube } from '@tabler/icons-react';
 import { useSpring, animated } from '@react-spring/web'
-import { createUseGesture, dragAction, hoverAction, useDrag } from '@use-gesture/react'
+import { createUseGesture, dragAction, hoverAction } from '@use-gesture/react'
 import { useRef } from 'react';
 import MediaLibrary from '@/features/library/media/components/MediaLibrary';
 import { galleryData } from '@/features/library/media/static/data';
@@ -24,8 +24,6 @@ const useStyles = createStyles((theme) => ({
                 : theme.colors.gray[2],
 
     },
-
-
     container: {
         height: rem(700),
         display: 'flex',
@@ -37,11 +35,9 @@ const useStyles = createStyles((theme) => ({
         position: 'relative',
 
         [theme.fn.smallerThan('sm')]: {
-
             paddingBottom: `calc(${theme.spacing.xl} * 3)`,
         },
     },
-
     title: {
         maxWidth: 800,
         color: theme.white,
@@ -133,7 +129,6 @@ function Media() {
         </ActionIcon>
 
     ));
-
 
     const [opened, handlers] = useDisclosure(false, {
         onOpen: () => {

@@ -18,7 +18,6 @@ const useStyles = createStyles((theme) => ({
             theme.colorScheme === "dark"
                 ? theme.colors.dark[7]
                 : theme.colors.gray[2],
-
     },
     title: {
         maxWidth: 800,
@@ -67,7 +66,7 @@ const useStyles = createStyles((theme) => ({
 function Documentation() {
     const { classes } = useStyles();
 
-    const colorTable = {
+    const colorTable: ColorTable = {
         'cad': 'teal',
         'code': 'blue',
         'documentation': 'violet',
@@ -96,7 +95,7 @@ function Documentation() {
                         {
                             accessor: 'type',
                             render: (row) => (
-                                <Badge color={colorTable[row.type]} size="lg" style={{ textTransform: 'uppercase' }}>{row.type}</Badge>
+                                <Badge color={colorTable[row.type as keyof ColorTable]} size="lg" style={{ textTransform: 'uppercase' }}>{row.type}</Badge>
                             ),
                         },
                         {
@@ -118,3 +117,7 @@ function Documentation() {
 }
 
 export default Documentation
+
+interface ColorTable {
+    [key: string]: string
+}

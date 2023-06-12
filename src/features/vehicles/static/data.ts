@@ -19,7 +19,7 @@ import {
   IconSubmarine,
 } from "@tabler/icons-react";
 
-export const vehicles = {
+export const vehicles: VehiclesData = {
   huron: {
     title: "Huron",
     year: "2021",
@@ -381,49 +381,55 @@ export const vehicles = {
   },
 };
 
-export interface VehicleInterface {
+export interface VehiclesData {
+  [key: string]: Vehicle;
+}
+
+export interface Vehicle {
   title: string;
   year: string;
   hero: string;
   description: string;
-  technical: {
-    mechanical: {
-      title: string;
-      specs: {
-        title: string;
-        value: string;
-        icon: Icon;
-      }[];
-    };
-    software: {
-      title: string;
-      specs: {
-        title: string;
-        value: string;
-        icon: Icon;
-      }[];
-    };
-  };
-  media: {
-    videos: {
-      title: string;
-      url: string;
-    }[];
-    report: string;
-  };
-  details: {
+  technical: TechnicalSpecs;
+  media: MediaSection;
+  details: DetailSection;
+}
+
+export interface TechnicalSpecs {
+  [key: string]: Spec;
+}
+
+export interface Spec {
+  title: string;
+  specs: {
     title: string;
-    overview: string;
-    components: {
-      title: string;
-      icon: Icon;
-      content: string;
-      layout: "img-left" | "img-right" | "img-below" | "text-only";
-      media?: string[];
-    }[];
+    value: string;
+    icon: Icon;
   }[];
 }
 
-/*!SECTION
+export interface DetailSection {
+  [key: string]: Detail;
+}
 
-    */
+export interface Detail {
+  title: string;
+  overview: string;
+  components: DetailComponent[];
+}
+
+export interface DetailComponent {
+  title: string;
+  icon: Icon;
+  content: string;
+  layout: "img-left" | "img-right" | "img-below" | "text-only";
+  media?: string[];
+}
+
+export interface MediaSection {
+  videos: {
+    title: string;
+    url: string;
+  }[];
+  report: string;
+}

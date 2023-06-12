@@ -6,8 +6,6 @@ import {
   Container,
   Divider,
   Group,
-  Paper,
-  SimpleGrid,
   Stack,
   Text,
   TextInput,

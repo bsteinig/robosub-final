@@ -6,7 +6,6 @@ import {
   Container,
   Divider,
   Grid,
-  Group,
   Image,
   List,
   Paper,
@@ -19,7 +18,6 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
-import Autoplay from "embla-carousel-autoplay";
 import React, { useEffect, useRef, useState } from "react";
 
 const useStyles = createStyles((theme) => ({

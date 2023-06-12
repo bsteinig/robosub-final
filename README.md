@@ -1,15 +1,52 @@
-# MRobosub Website
+<div align="center">
+    <h1 align="center">Robosub Website</h1>
+</div>
 
-## Dev Setup
-May need to install nvm for version control or npm if it's your first time using it
+## About The Project
 
-`nvm use`
+[![Robosub Screen Shot][project-screenshot]](https://michiganrobosub.com/)
 
-`npm i`
+This website showcases the Michigan Robosub team and its members. It also provides information about the team and its history. The website is built using ReactJS and Nextjs.
 
-`npm run dev`
+## Getting Started
 
-Open http://localhost:3000 to see website
+First time setup:
+
+1. If you are already using nvm (node version maanger)
+
+Use the following command to set your node version
+
+```bash
+nvm use
+```
+
+If you aren't using nvm, you should, or you can install Node.js 18.12.1 from https://nodejs.org/en/. Just make sure you uninstall any existing node installations first.
+
+1. Install required packages
+
+All you have to do is run this command inside the project directory
+
+```bash
+npm install
+```
+
+That should be all the setup you need.
+
+## Running the service
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Then, open your localhost at port 3000
+
+http://localhost:3000/
+
+(Highly recommend the Comment Anchors extension for VSCode)
 
 ## Deployment
 
@@ -21,4 +58,10 @@ Get environment variables locally `vercel env pull .env.local`
 Run `vercel --prod`
 
 ## Tech Stack
-Using ReactJS, Nextjs, Sass
+Using ReactJS, Nextjs
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+[project-screenshot]: images/RobosubPreview.png

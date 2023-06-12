@@ -1,17 +1,24 @@
 import Topography from "@/components/svgs/topography";
-import { Carousel, Embla } from "@mantine/carousel";
+import { AboutData, aboutData } from "@/features/about/static/data";
+import { Carousel } from "@mantine/carousel";
 import {
+  Accordion,
   Container,
   Divider,
+  Grid,
+  Group,
   Image,
+  List,
+  Paper,
   SimpleGrid,
   Stack,
   Text,
   Title,
   createStyles,
+  rem,
   useMantineTheme,
 } from "@mantine/core";
-import { useElementSize, useIntersection } from "@mantine/hooks";
+import { useElementSize } from "@mantine/hooks";
 import Autoplay from "embla-carousel-autoplay";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -32,7 +39,15 @@ const useStyles = createStyles((theme) => ({
     position: "fixed",
     zIndex: -1,
     width: "100%",
-    height: "50vh",
+    height: "75vh",
+    transform: "translateY(-30%)",
+    objectFit: "cover",
+  },
+  image: {
+    position: "fixed",
+    zIndex: -1,
+    width: "100%",
+    height: "75vh",
     transform: "translateY(-30%)",
     objectFit: "cover",
   },
@@ -150,7 +165,39 @@ const useStyles = createStyles((theme) => ({
   },
   topography: {
     backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[1],
-    backgroundImage: `url(${theme.colorScheme === "dark" ? "/topography-dark.svg" : "/topography-light.svg"})`,
+  },
+  subteamSection: {
+    background:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[7]
+        : theme.colors.gray[1],
+  },
+  accordion: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
+    borderRadius: theme.radius.sm,
+  },
+
+  accordionItem: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2],
+    border: `${rem(1)} solid transparent`,
+    position: 'relative',
+    zIndex: 0,
+    transition: 'transform 150ms ease',
+
+    '&[data-active]': {
+      transform: 'scale(1.03)',
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+      boxShadow: theme.shadows.xl,
+      borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2],
+      borderRadius: theme.radius.md,
+      zIndex: 1,
+    },
+  },
+
+  accordionChevron: {
+    '&[data-rotate]': {
+      transform: 'rotate(-90deg)',
+    },
   },
 }));
 
@@ -175,80 +222,34 @@ function About() {
     }
   }, [stickyHeight]);
 
-  interface dataItem {
-    title: string;
-    content: number;
-  }
-  interface data extends Array<dataItem> { }
 
-  const infoData: data = [
-    {
-      title: "Founded",
-      content: 2019,
-    },
-    {
-      title: "Members",
-      content: 205,
-    },
-    {
-      title: "Sponsors",
-      content: 32,
-    },
-  ];
-
-  const rightCol = infoData.map((item: dataItem, index: number) => {
-    return (
-      <div
-        className={classes.infoGrid}
-        style={{ top: `${100 * index}px` }}
-        key={index}
-      >
-        <Text className={classes.infoSubtitle} size="lg">
-          {item.title}
-        </Text>
-        <Title className={classes.infoHeading}>{item.content}</Title>
-      </div>
-    );
-  });
-
-
-  const autoplay = useRef(Autoplay({ delay: 2000 }));
-
-  // get list of image files in public/about
-  const images = [
-    '52303949921_d01a6b5a0d_o.jpg',
-    '52304444644_6426b3c6bc_o.jpg',
-    '52308618918_75e73ccf77_o.jpg'
-  ]
-
-  const carouselSlides = images.map((image, index) => {
-
-    return (
-      <Carousel.Slide key={index}>
-        <Image
-          className={classes.carouselSlide}
-          src={`/about/${image}`}
-        />
-      </Carousel.Slide>)
-  })
+  const [content, setContent] = useState<AboutData | null>(aboutData);
 
   return (
     <main className={classes.main}>
       <Container px={0} py={0} size="fluid">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          onContextMenu={handleContextMenu}
-          preload="auto"
-          className={classes.video}
-        >
-          <source
-            src="https://video.wixstatic.com/video/d0cbf8_140719a68e924d559eae63ca19557246/720p/mp4/file.mp4"
-            type="video/mp4"
+        {content?.hero.video && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            onContextMenu={handleContextMenu}
+            preload="auto"
+            className={classes.video}
+          >
+            <source
+              src={content.hero.video}
+              type="video/mp4"
+            />
+          </video>)}
+        {content?.hero.image && (
+          <Image
+            src={content.hero.image}
+            alt="Michigan Robotic Submarine"
+            className={classes.image}
           />
-        </video>
+        )}
         <Title pt={90} className={classes.bigHeading} order={1}>
           ABOUT US
         </Title>
@@ -267,36 +268,96 @@ function About() {
         >
           <Stack align="center" justify="flex-start" spacing={0}>
             <Text className={classes.intro} pt={40} px="md">
-              Michigan Robotic Submarine is a student-led engineering team
-              comprised of primarily undergraduate students with diverse
-              backgrounds and interests, working together to design and build an
-              autonomous robotic submarine for the annual RoboSub competition in
-              San Diego, CA. We strive to advance Autonomous Underwater Vehicle
-              (AUV) technology by engineering a submarine that can perform various
-              sub-nautical tasks, like sonar navigation and torpedo target
-              shooting.
+              {content?.description}
             </Text>
             <Carousel className={classes.carousel} withControls={false} loop >
-              {carouselSlides}
+              {content?.carousel.map((image, index) => {
+                return (
+                  <Carousel.Slide key={index}>
+                    <Image
+                      className={classes.carouselSlide}
+                      src={`/about/${image}`}
+                    />
+                  </Carousel.Slide>)
+              })}
             </Carousel>
           </Stack>
           <div ref={stickyRef} id="__stickyDiv">
-            {rightCol}
+            {content?.stats.map((item: { title: string, value: string }, index: number) => {
+              return (
+                <div
+                  className={classes.infoGrid}
+                  style={{ top: `${100 * index}px` }}
+                  key={index}
+                >
+                  <Text className={classes.infoSubtitle} size="lg">
+                    {item.title}
+                  </Text>
+                  <Title className={classes.infoHeading}>{item.value}</Title>
+                </div>
+              );
+            })}
           </div>
         </SimpleGrid>
-        <Topography>
-          <Container size="lg" className={classes.promoSection}>
-            <Title py={40} className={classes.sectionHeader} order={1}>
-              The Robosub Competition
-            </Title>
-            <iframe className={classes.promoVideo} src="https://www.youtube-nocookie.com/embed/uSPy8BruHug" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
-            <Text size="xl" pt={40} style={{ width: '80%' }}>
-              RoboSub is an international student competition for student teams to design and build robotic submarines, or "Autonomous Underwater Vehicles" (AUV), with behaviors that mimic real-world systems deployed around the world, such as underwater exploration, seafloor mapping, sonar localization, and much more.
-              <br /><br />
-              Learn more at: robosub.org
-            </Text>
-          </Container>
-        </Topography>
+      </Container>
+      <Topography color={theme.colorScheme === 'dark' ? 'C1C2C5' : '868E96'}>
+        <Container size="lg" className={classes.promoSection} py={50}>
+          <Title py={40} className={classes.sectionHeader} order={1}>
+            The Robosub Competition
+          </Title>
+          <iframe className={classes.promoVideo} src={content?.robosub.promo} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+          <Text size="xl" pt={40} style={{ width: '80%' }}>
+            {content?.robosub.description}
+            <br /><br />
+            Learn more at: robosub.org
+          </Text>
+        </Container>
+      </Topography>
+      <Container p={0} size="fluid" className={classes.subteamSection}>
+        <Container size="xl">
+          <Grid py={50} >
+            <Grid.Col span={12} md={4}>
+              <Paper p='md' shadow="md" radius="md">
+                <Title order={1}>
+                  Our Subteams
+                </Title>
+                <Text size="md">
+                  {content?.subteams.description}
+                </Text>
+              </Paper>
+            </Grid.Col>
+            <Grid.Col span={12} md={8}>
+              <Accordion variant="filled" className={classes.accordion} radius="md" defaultValue={content?.subteams.subteams[0].name} classNames={{ chevron: classes.accordionChevron, item: classes.accordionItem }} >
+                {
+                  content?.subteams.subteams.map((subteam, index) => {
+                    return (
+                      <Accordion.Item value={subteam.name} key={index}>
+                        <Accordion.Control ><Title order={2}>{subteam.name}</Title></Accordion.Control>
+                        <Accordion.Panel>
+                          <SimpleGrid cols={2}>
+                            <Text size="md">{subteam.description}</Text>
+                            <Stack>
+                              {subteam.image ? <Image src={subteam.image} /> : null}
+                              <List>
+                                {
+                                  subteam.bullets && subteam.bullets.map((bullet, index) => {
+                                    return (
+                                      <List.Item key={index}>{bullet}</List.Item>
+                                    )
+                                  })
+                                }
+                              </List>
+                            </Stack>
+                          </SimpleGrid>
+                        </Accordion.Panel>
+                      </Accordion.Item>
+                    )
+                  })
+                }
+              </Accordion>
+            </Grid.Col>
+          </Grid>
+        </Container>
       </Container>
     </main>
   );

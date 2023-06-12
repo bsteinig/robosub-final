@@ -1,6 +1,8 @@
 import {
+  Box,
   Container,
   Divider,
+  Grid,
   Group,
   SimpleGrid,
   Stack,
@@ -13,11 +15,25 @@ import { IconBrandAirbnb } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
   divider: {
-    position: "absolute",
+    position: "relative",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 400,
+
   },
   dividerText: {
+    position: "relative",
     textOrientation: "mixed",
     writingMode: "vertical-rl",
+    zIndex: 2,
+
+  },
+  svgBorder: {
+    marginTop: "35px",
+    height: "10px",
+    backgroundImage: 'url("/assets/wave_tile.svg")',
+    backgroundRepeat: "repeat-x",
   },
 }));
 
@@ -25,31 +41,27 @@ function SponsorSection({ title, logoSize, sponsors }: SponsorSectionProps) {
   const { classes } = useStyles();
 
   return (
-    <Container my={50} size="lg" p={0}>
-      <Group
-        style={{
-          height: "400px",
-          width: "100%",
-          alignItems: "flex-start",
-        }}
-      >
-        <Stack>
-          <IconBrandAirbnb size={48} />
-          <div>
-            <Title mt={0} order={3} className={classes.dividerText}>
-              {title}
-            </Title>
-          </div>
-          <div className={classes.divider}></div>
-        </Stack>
-        <Stack>
-          <div>SVG Here</div>
-          <SimpleGrid cols={2} spacing={10}>
+    <Container pt={50} size="lg" p={0}>
+      <Grid>
+        <Grid.Col span={1}>
+          <IconBrandAirbnb size={90} />
+        </Grid.Col>
+        <Grid.Col span={11}>
+          <div className={classes.svgBorder} />
+        </Grid.Col>
+        <Grid.Col className={classes.divider} span={1}>
+
+          <Title mt={0} order={2} className={classes.dividerText}>
+            {title}
+          </Title>
+        </Grid.Col>
+        <Grid.Col span={11}>
+          <SimpleGrid pt={50} cols={2} spacing={10} style={{ justifyItems: 'center' }}>
             <SponsorCard size={logoSize} />
             <SponsorCard size={logoSize} />
           </SimpleGrid>
-        </Stack>
-      </Group>
+        </Grid.Col>
+      </Grid>
     </Container>
   );
 }

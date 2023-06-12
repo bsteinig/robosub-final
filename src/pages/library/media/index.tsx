@@ -4,10 +4,10 @@ import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin, IconBrandYout
 import { useSpring, animated } from '@react-spring/web'
 import { createUseGesture, dragAction, hoverAction, useDrag } from '@use-gesture/react'
 import { useRef } from 'react';
-import MediaLibrary from '@/features/media/components/MediaLibrary';
-import Gallery from '@/features/about/Gallery';
-import { galleryData } from '@/features/media/static/data';
-import SocialMedia from '@/features/media/components/SocialMedia';
+import MediaLibrary from '@/features/library/media/components/MediaLibrary';
+import { galleryData } from '@/features/library/media/static/data';
+import SocialMedia from '@/features/library/media/components/SocialMedia';
+import LibraryHero from '@/features/library/shared/hero';
 
 const useStyles = createStyles((theme) => ({
     main: {
@@ -24,14 +24,7 @@ const useStyles = createStyles((theme) => ({
                 : theme.colors.gray[2],
 
     },
-    hero: {
-        position: 'relative',
-        backgroundImage:
-            'url(/technical/huron.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        clipPath: ' polygon(0 0, 100% 0%, 100% 90%, 0% 100%)'
-    },
+
 
     container: {
         height: rem(700),
@@ -141,6 +134,7 @@ function Media() {
 
     ));
 
+
     const [opened, handlers] = useDisclosure(false, {
         onOpen: () => {
             const folder = document.getElementById('folder-front');
@@ -193,13 +187,8 @@ function Media() {
 
     return (
         <main className={classes.main}>
-            <div className={classes.hero}>
-                <Overlay
-                    gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, .65) 40%)"
-                    opacity={1}
-                    zIndex={0}
-                />
-                <Container className={classes.container}>
+            <LibraryHero>
+                <>
                     <Title className={classes.title}>Keep up with Our Flow</Title>
                     <Text className={classes.description} size="lg" mt="xl">
                         Stay connected with us! Welcome to our media library and social media hub, where you can explore our photos, videos, and articles showcasing our cutting-edge robotic submarine technology and underwater adventures. <br /><br /> Follow us on social media to stay updated on our latest missions, achievements, and behind-the-scenes stories.
@@ -223,13 +212,13 @@ function Media() {
                             </svg>
                         </animated.div>
                     </div>
-                </Container>
-            </div>
+                </>
+            </LibraryHero>
             <Container size="lg" mb={75}>
                 <Title my={30} className={classes.subtitle}>Media Library</Title>
                 <MediaLibrary galleries={galleries.galleries} />
             </Container>
-            <Container size="lg"  my={50}>
+            <Container size="lg" my={50}>
                 <SocialMedia />
             </Container>
 

@@ -2357,6 +2357,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+mantine-datatable@^2.5.9:
+  version "2.5.9"
+  resolved "https://registry.yarnpkg.com/mantine-datatable/-/mantine-datatable-2.5.9.tgz#563c5a35c0121bdd25be091ad564c410d64b30ca"
+  integrity sha512-qSxmcsRayPN5HzTS/v4dE+mAo6BqeB27fJ9YS9im9hNg6LRIAE1/1seeDYFvbsFSEu0KLnTEZzo5NkigC9mDeQ==
+
 mapbox-gl@1.13.2:
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-1.13.2.tgz#76639c44f141f8dff71b7d8f1504f2aed11f7517"

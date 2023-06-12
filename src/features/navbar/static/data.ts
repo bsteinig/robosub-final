@@ -23,7 +23,7 @@ export const data: dataList = [
     links: [
       { label: "Who We Are", link: "/about" },
       { label: "Our Team", link: "/about/the-team" },
-      { label: "Progress", link: "/progress" },
+      { label: "Progress", link: "/about/progress" },
     ],
   },
   {

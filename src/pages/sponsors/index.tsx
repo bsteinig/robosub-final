@@ -1,3 +1,5 @@
+import { rotate } from "@/components/keyframes/rotate";
+import { spin } from "@/components/keyframes/spin";
 import SponsorCard from "@/features/sponsors/sponsorCard";
 import SponsorSection from "@/features/sponsors/sponsorSection";
 import {
@@ -14,7 +16,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import React from "react";
+import React, { use, useEffect } from "react";
 import { Parallax } from "react-scroll-parallax";
 
 const useStyles = createStyles((theme) => ({
@@ -28,12 +30,13 @@ const useStyles = createStyles((theme) => ({
     boxShadow: "0px 15px 50px 0px rgb(10 10 10 / 50%)",
     background:
       theme.colorScheme === "dark"
-        ? theme.colors.dark[7]
-        : theme.colors.gray[1],
+        ? theme.colors.dark[9]
+        : theme.colors.gray[2],
   },
   hero: {
     position: "relative",
     height: "800px",
+    zIndex: 2,
   },
   video: {
     position: "absolute",
@@ -133,8 +136,37 @@ const useStyles = createStyles((theme) => ({
   },
 
   bottomSvg: {
+    backdropFilter: "blur(5vmax)",
     backgroundImage: "url(/assets/bottom.svg)",
   },
+  blur: {
+    overflow: "hidden",
+    position: "relative",
+    height: "100%",
+    width: "100%",
+    zIndex: 2,
+    backdropFilter: "blur(5vmax)",
+
+  },
+  blob: {
+    height: '20vmax',
+    aspectRatio: '1',
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+    borderRadius: '50%',
+    backgroundImage: `linear-gradient(
+      60deg,
+      hsl(207deg 86% 57%) 0%,
+      hsl(222deg 77% 61%) 39%,
+      hsl(239deg 68% 63%) 61%,
+      hsl(255deg 67% 55%) 100%
+    )`,
+    animation: `${spin} 10s linear infinite`,
+    opacity: 0.6,
+    zIndex: 1,
+  }
 }));
 
 function Sponsors() {
@@ -146,6 +178,24 @@ function Sponsors() {
   const handleContextMenu = (event: React.MouseEvent<HTMLVideoElement>) => {
     event.preventDefault(); // Prevents the context menu from appearing
   };
+
+  // move div with id blob with mouse
+  const moveBlob = (e: any) => {
+    const blob = document.getElementById("blob");
+    if (!blob) return;
+    const width = blob.offsetWidth;
+    const height = blob.offsetHeight;
+
+    blob.style.left = (e.pageX - (width / 2)) + "px";
+    blob.style.top = (e.pageY - (height / 2)) + "px";
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousemove", moveBlob);
+    return () => {
+      document.removeEventListener("mousemove", moveBlob);
+    };
+  }, []);
 
   const heroTransition = () => {
     return (
@@ -291,31 +341,34 @@ function Sponsors() {
         </Container>
       </Container>
       <div className={cx(classes.spacer, classes.bottomSvg)}></div>
-      <SponsorSection
-        title="Captain"
-        logoSize="lg"
-        sponsors={[{ name: "ford", link: "https://ford.com" }]}
-      />
-      <SponsorSection
-        title="Commander"
-        logoSize="lg"
-        sponsors={[{ name: "ford", link: "https://ford.com" }]}
-      />
-      <SponsorSection
-        title="Crew"
-        logoSize="md"
-        sponsors={[{ name: "ford", link: "https://ford.com" }]}
-      />
-      <SponsorSection
-        title="Navigator"
-        logoSize="md"
-        sponsors={[{ name: "ford", link: "https://ford.com" }]}
-      />
-      <SponsorSection
-        title="Mate"
-        logoSize="sm"
-        sponsors={[{ name: "ford", link: "https://ford.com" }]}
-      />
+      <Container fluid p={0} className={classes.blur}>
+        <SponsorSection
+          title="Captain"
+          logoSize="lg"
+          sponsors={[{ name: "ford", link: "https://ford.com" }]}
+        />
+        <SponsorSection
+          title="Commander"
+          logoSize="lg"
+          sponsors={[{ name: "ford", link: "https://ford.com" }]}
+        />
+        <SponsorSection
+          title="Crew"
+          logoSize="md"
+          sponsors={[{ name: "ford", link: "https://ford.com" }]}
+        />
+        <SponsorSection
+          title="Navigator"
+          logoSize="md"
+          sponsors={[{ name: "ford", link: "https://ford.com" }]}
+        />
+        <SponsorSection
+          title="Mate"
+          logoSize="sm"
+          sponsors={[{ name: "ford", link: "https://ford.com" }]}
+        />
+      </Container>
+      <div id='blob' className={classes.blob}></div>
     </main>
   );
 }
